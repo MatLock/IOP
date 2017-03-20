@@ -1,0 +1,12 @@
+[{"cargo":"ANSES","nombreApellido":"Jorge Flores","username": "CDETRABAJO","codigoReparticion":"REPANSES"},
+{"cargo":"ANSES","nombreApellido":"Ren","username": "RENZO_EE","codigoReparticion":"REPANSES"},
+{"cargo":"ANSES", "nombreApellido":"David Padua","username": "DPADUA","codigoReparticion":"REPANSES"},
+{"cargo":"ANSES","nombreApellido":"La Mari","username": "MVILLAGGI","codigoReparticion":"REPANSES"},
+{"cargo":"AFIP", "nombreApellido":"Jorge Flores","username": "CDETRABAJOAFIP","codigoReparticion":"REPAFIP"},
+{"cargo":"AFIP","nombreApellido":"Ren","username": "RENZO_EEAFIP","codigoReparticion":"REPAFIP"},
+{"cargo":"AFIP","nombreApellido":"David Padua","username": "DPADUAAFIP","codigoReparticion":"REPAFIP"},
+{"cargo":"AFIP","nombreApellido":"La Mari","username": "MVILLAGGIAFIP","codigoReparticion":"REPAFIP"},
+{"cargo":"NS","nombreApellido":"Jorge Flores","username": "CDETRABAJONS","codigoReparticion":"REPNS"},
+{"cargo":"NS","nombreApellido":"Ren","username": "RENZO_EENS","codigoReparticion":"REPNS"},
+{"cargo":"NS","nombreApellido":"David Padua","username": "DPADUANS","codigoReparticion":"REPNS"},
+{"cargo":"NS","nombreApellido":"La Mari","username": "MVILLAGGINS","codigoReparticion":"REPNS"}]

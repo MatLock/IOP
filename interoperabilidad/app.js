@@ -3,23 +3,38 @@ const express = require("express");
 const app = express();
 const bodyParser = require('body-parser');
 const server = http.createServer(app);
-
+const usersIOP = require('./users.json');
+const sectors = require('./sectors.json');
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
 const URL_BACKEND = 'http://localhost:8054/gde-restfull-api-web';
 
 
+
 app.get('/ecosystems',(req,res) => {
 	res.json(['APN','ANSES','AFIP','NS']);
 });
 
+app.get('/users/:ecosystem', (req,res) => {
+	let response = usersIOP.filter(elem => elem.cargo === req.params.ecosystem);
+	res.json(response);
+});
+
+app.get('/reparticiones/:ecosystem',(req,res) => {
+	res.json(['REPANSES','REPNS','REPAFIP']);
+});
+
+app.get('/sectors/:ecosystem/:reparticion',(req,res) => {
+	res.json(sectors.filter(elem => elem.codigoReparticion === req.param.reparticion));
+});
 
 app.post("/receive", (req,res) =>{
 	let body = req.body;
 	let response = {};
-	copyProperties(body,response)
-	.then( () => res.json(response));
+	console.log('RECEIVING -> ', body);
+	copyProperties(body,response).then(() => console.log("RESPUESTA -> ", response));
+//	.then( () => res.json(response));
 });
 
 const copyProperties = (body,response) => {
@@ -77,23 +92,23 @@ server.listen(5000);
 
 
 
-
+/*
 let test = {
 		expediente:'http://localhost:8054/gde-restfull-api-web/interoperabilidad/expediente/2017/112908/APN',
 		historial:'http://localhost:8054/gde-restfull-api-web/interoperabilidad/expediente/2017/112908/APN/historial',
-		codigoTrata:'http://localhost:8054/gde-restfull-api-web/interoperabilidad/expediente/2017/112908/APN/trata',
+		trata:'http://localhost:8054/gde-restfull-api-web/interoperabilidad/expediente/2017/112908/APN/trata',
 		documentos:
 	['http://localhost:8054/gde-restfull-api-web/interoperabilidad/expediente/2017/112908/APN/documento/IF-2017-00099520-APN-MARI',
 	'http://localhost:8054/gde-restfull-api-web/interoperabilidad/expediente/2017/112908/APN/documento/IF-2017-00112909-APN-MARI'],
-	archivoDeTrabajo: ['http://localhost:8054/gde-restfull-api-web/interoperabilidad/expediente/2017/00112908/APN/rest.txt/archivoDeTrabajo',
-					  'http://localhost:8054/gde-restfull-api-web/interoperabilidad/expediente/2017/00112908/APN/ABATE.png/archivoDeTrabajo']
+	archivoDeTrabajo: ['http://localhost:8054/gde-restfull-api-web/interoperabilidad/expediente/2017/00112908/APN/archivoDeTrabajo/rest.txt',
+					  'http://localhost:8054/gde-restfull-api-web/interoperabilidad/expediente/2017/00112908/APN/archivoDeTranajo/ABATE.png']
 	};
 console.log("ENTRADA ->", test);
 
 
-/* It receives a Json of URI's and return a JSON with the result of all invocations */
+// It receives a Json of URI's and return a JSON with the result of all invocations //
 
 copyProperties(test,{}).then( arr =>{
 	console.log("RESULTADO -> ");
 	console.log(arr[0])
-});
+});*/
