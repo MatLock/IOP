@@ -7,7 +7,7 @@ const server = http.createServer(app);
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
-const URL_BACKEND = 'http://ee-rest-backend.nac.everis.int/gde-restfull-api-web';
+const URL_BACKEND = 'http://localhost:8054/gde-restfull-api-web';
 
 
 app.get('/ecosystems',(req,res) => {
