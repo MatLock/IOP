@@ -1,0 +1,15 @@
+{
+  "name": "interoperabilidad",
+  "version": "1.0.0",
+  "description": "cliente interoperabilidad",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "MatLock",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2"
+  }
+}
