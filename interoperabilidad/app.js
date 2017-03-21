@@ -44,8 +44,7 @@ app.post("/receive", (req,res) =>{
 
 const copyPropertiesWithURL = (body,response) => {
 	return Promise.all(Object.keys(body).map( property => {
-			if(body[property] !== undefined && body[property] !== null &&
-				body[property].constructor === Array){
+			if(!body[property] && body[property].constructor === Array){
 				return getContentFromList(body[property],response,property);
 			}else{
 				return getContent(response,property,body);
@@ -56,8 +55,7 @@ const copyPropertiesWithURL = (body,response) => {
 const copyProperties = (body,response) =>{
 	let objWithUrls = undefined;
 	Object.keys(body).forEach( property => {
-		if(typeof body[property] !== 'object' ||  body[property] === null ||
-			body[property] === undefined){
+		if(typeof body[property] !== 'object' || !body[property]){
 			response[property] = body[property];
 		}else{
 			objWithUrls = body[property];
