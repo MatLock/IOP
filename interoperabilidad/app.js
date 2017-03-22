@@ -44,7 +44,7 @@ app.post("/receive", (req,res) =>{
 
 const copyPropertiesWithURL = (body,response) => {
 	return Promise.all(Object.keys(body).map( property => {
-			if(!body[property] && body[property].constructor === Array){
+			if(body[property] && body[property].constructor === Array){
 				return getContentFromList(body[property],response,property);
 			}else{
 				return getContent(response,property,body);
@@ -55,7 +55,7 @@ const copyPropertiesWithURL = (body,response) => {
 const copyProperties = (body,response) =>{
 	let objWithUrls = undefined;
 	Object.keys(body).forEach( property => {
-		if(typeof body[property] !== 'object' || !body[property]){
+		if( body[property]  && typeof body[property] !== 'object'){
 			response[property] = body[property];
 		}else{
 			objWithUrls = body[property];
@@ -107,9 +107,6 @@ function toJson(str){
 }
 
 
-server.listen(5000);
-
-
 
 let test = { destino: 'destino',
   ecosistemaOrigen: 'ecosistemaorigen',
@@ -127,15 +124,20 @@ let test = { destino: 'destino',
      historial: 'http://localhost:8054/gde-restfull-api-web/interoperabilidad/expediente/2017/112908/APN/historial',
      archivosDeTrabajo:
       [ 'http://localhost:8054/gde-restfull-api-web/interoperabilidad/expediente/2017/112908/APN/rest.txt/archivoDeTrabajo',
-        'http://localhost:8054/gde-restfull-api-web/interoperabilidad/expediente/2017/112908/APN/ABATE.png/archivoDeTrabajo' ] } }
-
+        'http://localhost:8054/gde-restfull-api-web/interoperabilidad/expediente/2017/112908/APN/ABATE.png/archivoDeTrabajo' ]
+     } 
+   }
 
 
 
 // It receives a Json of URI's and return a JSON with the result of all invocations //
 let res = {};
 copyProperties(test,res).then( _ =>{
+	console.log("ENTRADA ->");
+	console.log(test);
 	console.log("RESULTADO -> ");
 	console.log(res);
-	console.log(res.expedienteInteroperable.historial);
+	//console.log(res.expedienteInteroperable.historial);
 });
+
+server.listen(5000);
