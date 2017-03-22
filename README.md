@@ -3,5 +3,5 @@ prueba del modulo IOP
 
 
 #Inicialización ->
-npm start
+npm install
 node app.js
