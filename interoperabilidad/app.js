@@ -54,7 +54,7 @@ app.get('/historial/expediente/:anio/:numero/:ecosistema', (req,res) =>{
 			let newHistory = history.map(elem =>{
 				let newElement = {};
 				Object.keys(elem).forEach( property => {
-					if( typeof elem[property.toString()] === 'string'){
+					if( typeof elem[property.toString()] === 'string' && property.toString() === 'motivo'){
 						newElement[property] = elem[property] + 'NUEVOECOSISTEMA';
 					}else if (!elem[property]){
 						newElement[property.toString()] = null;
