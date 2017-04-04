@@ -26,7 +26,7 @@ app.get('/reparticiones/:ecosystem',(req,res) => {
 });
 
 app.get('/sectors/:ecosystem/:reparticion',(req,res) => {
-	res.json(sectors.filter(elem => elem.codigoReparticion === req.param.reparticion));
+	res.json(sectors.filter(elem => elem.codigoReparticion === req.params.reparticion));
 });
 
 app.post("/receive", (req,res) =>{
@@ -36,9 +36,20 @@ app.post("/receive", (req,res) =>{
 	console.log('==============================================');
 	console.log('==============================================');
 	console.log('==============================================');
-	copyProperties(body,response).then(() => res.end());
-	console.log("RESPONSE -> ", response)
+	copyProperties(body,response).then(() => console.log("RESPONSE -> ", response));
+	res.end();
 //	.then( () => res.json(response));
+});
+
+// 'http://localhost:8054/gde-restfull-api-web/interoperabilidad/expediente/2017/112908/APN/historial',
+app.get('/historial/expediente/:anio/:numero/:ecosistema', (req,res) =>{
+	let uri = 'http://localhost:8054/gde-restfull-api-web/interoperabilidad/expediente/'+
+				req.params.anio+'/'+req.params.numero+'/'+req.params.ecosistema+'/historial'
+	http.get(uri,response =>{
+		let json = '';
+		response.on('data', data => json += data);
+		response.on('end', _ => res.json(toJson(json)));
+	});
 });
 
 
@@ -52,8 +63,9 @@ const copyPropertiesWithURL = (body,response) => {
 	}));
 }
 
-const copyProperties = (body,response) =>{
+const copyProperties = (body,response) => {
 	let objWithUrls = undefined;
+	let prop = undefined;
 	Object.keys(body).forEach( property => {
 		if( body[property]  && typeof body[property] !== 'object'){
 			response[property] = body[property];
@@ -72,7 +84,7 @@ function getContent(response,property,body){
 		http.get(body[property], res => {
 			let json = '';
 			res.on('data', data => json += data );
-			 res.on('end', _ => { 
+			res.on('end', _ => { 
 			 	response[property.toString()] = toJson(json);
 			 	resolve(response);
 			});
@@ -102,20 +114,19 @@ function toJson(str){
 	try{
 		return JSON.parse(str);
 	}catch(e){}
-
 	return str;
 }
 
 
 
 let test = { destino: 'destino',
-  ecosistemaOrigen: 'ecosistemaorigen',
+  ecosistemaOrigen: 'ecosistemaorigen', // dato en el expediente
   ecosistemaDestino: 'ecosistemadestino',
-  estadoSeleccionado: null,
-  pasePropietario: false,
-  expedienteInteroperable:
-   { expediente: 'http://localhost:8054/gde-restfull-api-web/interoperabilidad/expediente/2017/112908/APN',
+  pasePropietario: false, // dato en el expediente
+  expedienteInteroperable:{
+     expediente: 'http://localhost:8054/gde-restfull-api-web/interoperabilidad/expediente/2017/112908/APN',
      trata: 'http://localhost:8054/gde-restfull-api-web/interoperabilidad/expediente/2017/112908/APN/trata',
+     task:'http://localhost:8054/gde-restfull-api-web/interoperabilidad/solicitud.98290113/task', 
      documentos:
       [ 'http://localhost:8054/gde-restfull-api-web/interoperabilidad/expediente/2017/112908/APN/documento/IF-2017-00112909-APN-MARI',
         'http://localhost:8054/gde-restfull-api-web/interoperabilidad/expediente/2017/112908/APN/documento/IF-2017-00099520-APN-MARI',
@@ -131,13 +142,16 @@ let test = { destino: 'destino',
 
 
 // It receives a Json of URI's and return a JSON with the result of all invocations //
+/*
 let res = {};
 copyProperties(test,res).then( _ =>{
 	console.log("ENTRADA ->");
 	console.log(test);
 	console.log("RESULTADO -> ");
 	console.log(res);
+	console.log("<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><");
+	console.log(res.expedienteInteroperable.task.variables_);
 	//console.log(res.expedienteInteroperable.historial);
-});
+});*/
 
-server.listen(5000);
+server.listen(5000,_ => console.log("Server is listening on Port:5000"));
