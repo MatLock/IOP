@@ -48,7 +48,26 @@ app.get('/historial/expediente/:anio/:numero/:ecosistema', (req,res) =>{
 	http.get(uri,response =>{
 		let json = '';
 		response.on('data', data => json += data);
-		response.on('end', _ => res.json(toJson(json)));
+		response.on('end', _ =>{
+			let history = toJson(json);
+			var order = history.length + 1;
+			let newHistory = history.map(elem =>{
+				let newElement = {};
+				Object.keys(elem).forEach( property => {
+					if( typeof elem[property.toString()] === 'string'){
+						newElement[property] = elem[property] + 'NUEVOECOSISTEMA';
+					}else if (!elem[property]){
+						newElement[property.toString()] = null;
+					}else if(elem[property] !== 'string'){
+						newElement[property.toString()] = elem[property];
+					}
+				});
+			newElement.ordenHistorico = order;
+			order++;
+			return newElement;	
+			});
+			res.json(history.concat(newHistory));
+		});
 	});
 });
 
