@@ -16,17 +16,17 @@ app.get('/ecosystems',(req,res) => {
 	res.json(['APN','ANSES','AFIP','NS']);
 });
 
-app.get('/users/:ecosystem', (req,res) => {
-	let response = usersIOP.filter(elem => elem.cargo === req.params.ecosystem);
+app.get('/users/:enviroment', (req,res) => {
+	let response = usersIOP.filter(elem => elem.cargo === req.params.enviroment);
 	res.json(response);
 });
 
-app.get('/reparticiones/:ecosystem',(req,res) => {
+app.get('/reparticiones/:enviroment',(req,res) => {
 	res.json(['REPANSES','REPNS','REPAFIP']);
 });
 
-app.get('/sectors/:ecosystem/:reparticion',(req,res) => {
-	res.json(sectors.filter(elem => elem.codigoReparticion === req.params.reparticion));
+app.get('/sectors/:enviroment/:reparticion',(req,res) => {
+	res.json(sectors.filter(elem => elem.codigoReparticion === req.params.enviroment));
 });
 
 app.post("/receive", (req,res) =>{
@@ -58,7 +58,7 @@ app.get('/historial/expediente/:anio/:numero/:ecosistema', (req,res) =>{
 						newElement[property] = elem[property] + 'NUEVOECOSISTEMA';
 					}else if (!elem[property]){
 						newElement[property.toString()] = null;
-					}else if(elem[property] !== 'string'){
+					}else{
 						newElement[property.toString()] = elem[property];
 					}
 				});
