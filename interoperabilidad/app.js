@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const server = http.createServer(app);
 const usersIOP = require('./users.json');
 const sectors = require('./sectors.json');
+const registry = require('./registry.json');
+const request = require('request')
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
@@ -12,7 +14,7 @@ const URL_BACKEND = 'http://localhost:8054/gde-restfull-api-web';
 
 
 
-app.get('/ecosystems',(req,res) => {
+app.get('/enviroment',(req,res) => {
 	res.json(['APN','ANSES','AFIP','NS']);
 });
 
@@ -36,12 +38,25 @@ app.post("/receive", (req,res) =>{
 	console.log('==============================================');
 	console.log('==============================================');
 	console.log('==============================================');
-	copyProperties(body,response).then(() => console.log("RESPONSE -> ", response));
 	res.end();
-//	.then( () => res.json(response));
+	copyProperties(body,response).then(() =>{
+		console.log("RESPONSE -> ", response[response.jsonableObject]);
+		let receiver = registry.filter(elem => elem.modulo === response.modulo 
+				&& elem.ecosistema === response.ecosistemaDestino)[0];
+		let options = {
+  			method: 'post',
+  			body: response[response.jsonableObject],
+  			json: true,
+  			url: receiver.url
+  		};
+  		request(options, (err, res, body) => {
+  			if(err){
+  				console.log(err);
+  			}
+  		});
+  	});
 });
 
-// 'http://localhost:8054/gde-restfull-api-web/interoperabilidad/expediente/2017/112908/APN/historial',
 app.get('/historial/expediente/:anio/:numero/:ecosistema', (req,res) =>{
 	let uri = 'http://localhost:8054/gde-restfull-api-web/interoperabilidad/expediente/'+
 				req.params.anio+'/'+req.params.numero+'/'+req.params.ecosistema+'/historial'
@@ -92,6 +107,7 @@ const copyProperties = (body,response) => {
 			objWithUrls = body[property];
 			prop = property;
 			response[property.toString()] = {};
+			response.jsonableObject = property.toString();
 		}
 	});
 	return copyPropertiesWithURL(objWithUrls,response[prop]);
