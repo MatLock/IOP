@@ -38,7 +38,6 @@ app.post("/receive", (req,res) =>{
 	console.log('==============================================');
 	console.log('==============================================');
 	console.log('==============================================');
-	res.end();
 	copyProperties(body,response).then(() =>{
 		console.log("RESPONSE -> ", response[response.jsonableObject]);
 		let receiver = registry.filter(elem => elem.modulo === response.modulo 
@@ -55,6 +54,7 @@ app.post("/receive", (req,res) =>{
   			}
   		});
   	});
+  	res.end();
 });
 
 app.get('/historial/expediente/:anio/:numero/:ecosistema', (req,res) =>{
@@ -101,7 +101,7 @@ const copyProperties = (body,response) => {
 	let objWithUrls = undefined;
 	let prop = undefined;
 	Object.keys(body).forEach( property => {
-		if( body[property]  && typeof body[property] !== 'object'){
+		if( !body[property]  || typeof body[property] === 'string'){
 			response[property] = body[property];
 		}else{
 			objWithUrls = body[property];
@@ -115,6 +115,9 @@ const copyProperties = (body,response) => {
 
 
 function getContent(response,property,body){
+	if(!body[property]){
+		return Promise.resolve();
+	}
 	return new Promise((resolve,reject) => {
 		http.get(body[property], res => {
 			let json = '';
@@ -131,6 +134,9 @@ function getContentFromList(arrayOfProperties,response,property){
 	response[property.toString()] = [];
 	return Promise.all( arrayOfProperties.map((elem,index) => {
 				return new Promise ((resolve,reject) => {
+					if(!elem){
+						resolve();
+					}
 					http.get(elem, res =>{
 					let json = '';
 					res.on('data', data => { json += data });
