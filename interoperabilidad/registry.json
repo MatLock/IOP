@@ -3,8 +3,8 @@
  {"modulo":"EE","ecosistema":"NS","url":"http://localhost:8054/gde-restfull-api-web/interoperabilidad/expediente/importarExpedienteEcosistema"},
  {"modulo":"EE","ecosistema":"ANSES","url":"http://localhost:8054/gde-restfull-api-web/interoperabilidad/expediente/importarExpedienteEcosistema"},
  {"modulo":"EE","ecosistema":"APN","url":"http://localhost:8054/gde-restfull-api-web/expediente/importarExpedienteExosistema"},
- {"modulo":"GEDO","ecosistema":"AFIP","url":"http://marcos.gcaba.everis.int:84/gedo-web/Interoperabilidad/continuarTareaIOP"},
- {"modulo":"GEDO","ecosistema":"ANSES","url":"http://marcos.gcaba.everis.int:84/gedo-web/Interoperabilidad/continuarTareaIOP"},
- {"modulo":"GEDO","ecosistema":"NS","url":"http://marcos.gcaba.everis.int:84/gedo-web/Interoperabilidad/continuarTareaIOP"},
- {"modulo":"GEDO","ecosistema":"APN","url":"http://marcos.gcaba.everis.int:84/gedo-web/Interoperabilidad/continuarTareaIOP"}
+ {"modulo":"GEDO","ecosistema":"AFIP","url":"http://marcos.gcaba.everis.int:84/gedo-restfull-api-web/Interoperabilidad/continuarTareaIOP"},
+ {"modulo":"GEDO","ecosistema":"ANSES","url":"http://marcos.gcaba.everis.int:84/gedo-restfull-api-web/Interoperabilidad/continuarTareaIOP"},
+ {"modulo":"GEDO","ecosistema":"NS","url":"http://marcos.gcaba.everis.int:84/gedo-restfull-api-web/Interoperabilidad/continuarTareaIOP"},
+ {"modulo":"GEDO","ecosistema":"APN","url":"http://marcos.gcaba.everis.int:84/gedo-restfull-api-web/Interoperabilidad/continuarTareaIOP"}
 ]
