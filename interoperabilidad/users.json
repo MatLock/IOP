@@ -6,7 +6,7 @@
 {"cargo":"SANEST","nombreApellido":"Ren","username": "RENZO_EEAFIP","codigoReparticion":"REPAFIP"},
 {"cargo":"SANEST","nombreApellido":"David Padua","username": "DPADUA","codigoReparticion":"REPAFIP"},
 {"cargo":"SANEST","nombreApellido":"La Mari","username": "MVILLAGGIAFIP","codigoReparticion":"REPAFIP"},
-{"cargo":"NS","nombreApellido":"Jorge Flores","username": "CDETRABAJONS","codigoReparticion":"REPNS"},
-{"cargo":"NS","nombreApellido":"Ren","username": "RENZO_EENS","codigoReparticion":"REPNS"},
-{"cargo":"NS","nombreApellido":"David Padua","username": "DPADUANS","codigoReparticion":"REPNS"},
-{"cargo":"NS","nombreApellido":"La Mari","username": "MVILLAGGINS","codigoReparticion":"REPNS"}]
+{"cargo":"APN","nombreApellido":"Jorge Flores","username": "CDETRABAJONS","codigoReparticion":"REPNS"},
+{"cargo":"APN","nombreApellido":"Ren","username": "RENZO_EENS","codigoReparticion":"REPNS"},
+{"cargo":"APN","nombreApellido":"David Padua","username": "DPADUA","codigoReparticion":"REPNS"},
+{"cargo":"APN","nombreApellido":"La Mari","username": "MVILLAGGINS","codigoReparticion":"REPNS"}]
