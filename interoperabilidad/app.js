@@ -46,7 +46,8 @@ app.post("/receive", (req,res) =>{
   			method: 'post',
   			body: response[response.jsonableObject],
   			json: true,
-  			url: receiver.url
+  			//url: receiver.url
+  			url:'http://7.217.102.85:8054/gde-restfull-api-web/interoperabilidad/expediente/importarExpedienteEcosistema'
   			//url: 'http://7.217.102.57:8054/gde-restfull-api-web/interoperabilidad/expediente/importarExpedienteEcosistema'
   		};
   		request(options, (err, res, body) => {
