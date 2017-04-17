@@ -15,7 +15,7 @@ const URL_BACKEND = 'http://localhost:8054/gde-restfull-api-web';
 
 
 app.get('/enviroment',(req,res) => {
-	res.json(['APN','ANSES','AFIP','NS']);
+	res.json(['APN','ANSES','SANEST','NS']);
 });
 
 app.get('/users/:enviroment', (req,res) => {
@@ -46,7 +46,8 @@ app.post("/receive", (req,res) =>{
   			method: 'post',
   			body: response[response.jsonableObject],
   			json: true,
-  			url: receiver.url
+  			//url: receiver.url
+  			url: 'http://7.217.102.57:8054/gde-restfull-api-web/interoperabilidad/expediente/importarExpedienteEcosistema'
   		};
   		request(options, (err, res, body) => {
   			if(err){
@@ -58,13 +59,14 @@ app.post("/receive", (req,res) =>{
 });
 
 app.get('/historial/expediente/:anio/:numero/:ecosistema', (req,res) =>{
-	let uri = 'http://localhost:8054/gde-restfull-api-web/interoperabilidad/expediente/'+
+	let uri = 'http://7.217.102.57:8054/gde-restfull-api-web/interoperabilidad/expediente/'+
 				req.params.anio+'/'+req.params.numero+'/'+req.params.ecosistema+'/historial'
 	http.get(uri,response =>{
 		let json = '';
 		response.on('data', data => json += data);
 		response.on('end', _ =>{
 			let history = toJson(json);
+			/*console.log(history);
 			var order = history.length + 1;
 			let newHistory = history.map(elem =>{
 				let newElement = {};
@@ -80,8 +82,8 @@ app.get('/historial/expediente/:anio/:numero/:ecosistema', (req,res) =>{
 			newElement.ordenHistorico = order;
 			order++;
 			return newElement;	
-			});
-			res.json(history.concat(newHistory));
+			});*/
+			res.json(history);
 		});
 	});
 });
