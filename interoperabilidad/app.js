@@ -24,11 +24,11 @@ app.get('/users/:enviroment', (req,res) => {
 });
 
 app.get('/reparticiones/:enviroment',(req,res) => {
-	res.json(['REPANSES','REPNS','REPAFIP']);
+	res.json(['DGTRANSI']);
 });
 
 app.get('/sectors/:enviroment/:reparticion',(req,res) => {
-	res.json(sectors.filter(elem => elem.codigoReparticion === req.params.enviroment));
+	res.json(sectors.filter(elem => elem.codigoReparticion === req.params.reparticion));
 });
 
 app.post("/receive", (req,res) =>{
@@ -46,8 +46,8 @@ app.post("/receive", (req,res) =>{
   			method: 'post',
   			body: response[response.jsonableObject],
   			json: true,
-  			//url: receiver.url
-  			url:'http://7.217.102.85:8054/gde-restfull-api-web/interoperabilidad/expediente/importarExpedienteEcosistema'
+  			url: receiver.url
+  			//url:'http://7.217.102.85:8054/gde-restfull-api-web/interoperabilidad/expediente/importarExpedienteEcosistema'
   			//url: 'http://7.217.102.57:8054/gde-restfull-api-web/interoperabilidad/expediente/importarExpedienteEcosistema'
   		};
   		request(options, (err, res, body) => {
@@ -163,10 +163,8 @@ function toJson(str){
 
 
 
-let test = { destino: 'destino',
-  ecosistemaOrigen: 'ecosistemaorigen', // dato en el expediente
+let test = { modulo:'EE',
   ecosistemaDestino: 'ecosistemadestino',
-  pasePropietario: false, // dato en el expediente
   expedienteInteroperable:{
      expediente: 'http://localhost:8054/gde-restfull-api-web/interoperabilidad/expediente/2017/112908/APN',
      trata: 'http://localhost:8054/gde-restfull-api-web/interoperabilidad/expediente/2017/112908/APN/trata',
